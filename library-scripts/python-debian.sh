@@ -324,7 +324,7 @@ chmod g+s ${PIPX_HOME} ${PIPX_BIN_DIR}
 # Update pip if not using os provided python
 if [ ${PYTHON_VERSION} != "os-provided" ] && [ ${PYTHON_VERSION} != "system" ]; then
     echo "Updating pip..."
-    ls -alhF ${PYTHON_INSTALL_PATH}/bin
+    ls -alhF ${PYTHON_INSTALL_PATH}
     ${PYTHON_INSTALL_PATH}/bin/python3 -m pip install --no-cache-dir --upgrade pip
 fi
 
