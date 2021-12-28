@@ -13,8 +13,6 @@ ARG USER_GID=$USER_UID
 ENV SHELL=/bin/bash \
     GOROOT="/usr/local/go" \
     GOPATH="/go" \
-    CARGO_HOME="/usr/local/cargo" \
-    RUSTUP_HOME="/usr/local/rustup" \
     DOCKER_BUILDKIT=1
 
 # SSH Options
@@ -28,13 +26,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && bash /tmp/scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
     # Verify expected build and debug tools are present
     && apt-get -y install build-essential cmake cppcheck valgrind clang lldb llvm gdb python3-dev \
-    && bash /tmp/scripts/sshd-debian.sh "${SSHD_PORT}" "${USERNAME}" "${START_SSHD}" "skip" "true" \
-    # Install Python
-    && bash /tmp/scripts/python-debian.sh "os-provided"
+    && bash /tmp/scripts/sshd-debian.sh "${SSHD_PORT}" "${USERNAME}" "${START_SSHD}" "skip" "true"
 
-# Install Rust, Go, remove scripts now that we're done with them
-RUN bash /tmp/scripts/rust-debian.sh "${CARGO_HOME}" "${RUSTUP_HOME}" "${USERNAME}" "true" \
-    && bash /tmp/scripts/go-debian.sh "latest" "${GOROOT}" "${GOPATH}" "${USERNAME}" \
+# Install Go, remove scripts now that we're done with them
+RUN bash /tmp/scripts/go-debian.sh "latest" "${GOROOT}" "${GOPATH}" "${USERNAME}" \
     # Clean up
     && apt-get autoremove -y && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
