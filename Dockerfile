@@ -8,7 +8,6 @@ ARG UPGRADE_PACKAGES="true"
 ARG USERNAME=dev
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-ARG HOMEDIR=/home/$USERNAME
 
 # Default to bash shell (other shells available at /usr/bin/fish and /usr/bin/zsh)
 ENV SHELL=/bin/bash \
@@ -16,7 +15,6 @@ ENV SHELL=/bin/bash \
     GOPATH="/go" \
     CARGO_HOME="/usr/local/cargo" \
     RUSTUP_HOME="/usr/local/rustup" \
-    SDKMAN_DIR="/usr/local/sdkman" \
     DOCKER_BUILDKIT=1
 
 # SSH Options
@@ -33,12 +31,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && bash /tmp/scripts/sshd-debian.sh "${SSHD_PORT}" "${USERNAME}" "${START_SSHD}" "skip" "true" \
     # Install Python
     && bash /tmp/scripts/python-debian.sh "os-provided"
-
-# Install SDKMAN, OpenJDK8 (JDK 17 already present), gradle (maven already present)
-RUN bash /tmp/scripts/gradle-debian.sh "latest" "${SDKMAN_DIR}" "${USERNAME}" "true" \
-    && su ${USERNAME} -c ". ${SDKMAN_DIR}/bin/sdkman-init.sh \
-        && sdk install java 11-opt-java /opt/java/17.0 \
-        && sdk install java lts-opt-java /opt/java/lts"
 
 # Install Rust, Go, remove scripts now that we're done with them
 RUN bash /tmp/scripts/rust-debian.sh "${CARGO_HOME}" "${RUSTUP_HOME}" "${USERNAME}" "true" \
