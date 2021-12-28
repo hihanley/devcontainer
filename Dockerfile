@@ -15,7 +15,6 @@ ENV SHELL=/bin/bash \
     NVM_DIR="/home/${USERNAME}/.nvm" \
     NVS_HOME="/home/${USERNAME}/.nvs" \
     NPM_GLOBAL="/home/${USERNAME}/.npm-global" \
-    PIPX_HOME="/usr/local/py-utils" \
     GOROOT="/usr/local/go" \
     GOPATH="/go" \
     CARGO_HOME="/usr/local/cargo" \
@@ -36,7 +35,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install build-essential cmake cppcheck valgrind clang lldb llvm gdb python3-dev \
     && bash /tmp/scripts/sshd-debian.sh "${SSHD_PORT}" "${USERNAME}" "${START_SSHD}" "skip" "true" \
     # Install Python
-    && bash /tmp/scripts/python-debian.sh "none" "/opt/python/latest" "${PIPX_HOME}" "${USERNAME}" "true"
+    && bash /tmp/scripts/python-debian.sh "os-provided"
 
 # Setup Node.js, install NVM and NVS
 RUN bash /tmp/scripts/node-debian.sh "${NVM_DIR}" "none" "${USERNAME}" \
