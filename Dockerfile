@@ -29,8 +29,8 @@ ENV SSHD_PORT=22 \
 
 # Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies.
 COPY library-scripts/*.sh library-scripts/*.env /tmp/scripts/
-RUN yes | unminimize 2>&1 \ 
-    && apt-get update \
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && yes | unminimize 2>&1 \ 
     && bash /tmp/scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
     # Verify expected build and debug tools are present
     && apt-get -y install build-essential cmake cppcheck valgrind clang lldb llvm gdb python3-dev \
