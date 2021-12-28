@@ -62,7 +62,7 @@ RUN bash /tmp/scripts/rust-debian.sh "${CARGO_HOME}" "${RUSTUP_HOME}" "${USERNAM
     && bash /tmp/scripts/go-debian.sh "latest" "${GOROOT}" "${GOPATH}" "${USERNAME}" \
     # Clean up
     && apt-get autoremove -y && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/scripts
 
 # [Optional] Uncomment this section to install additional OS packages.
