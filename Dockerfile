@@ -1,5 +1,5 @@
 # [Choice] Ubuntu version (use hirsute or bionic on local arm64/Apple Silicon): hirsute, focal, bionic
-ARG VARIANT="hirsute"
+ARG VARIANT="focal"
 FROM buildpack-deps:${VARIANT}-curl
 
 # Options for setup script
@@ -24,8 +24,6 @@ COPY library-scripts/*.sh library-scripts/*.env /tmp/scripts/
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && yes | unminimize 2>&1 \ 
     && bash /tmp/scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
-    # Verify expected build and debug tools are present
-    && apt-get -y install build-essential cmake cppcheck valgrind clang lldb llvm gdb python3-dev \
     && bash /tmp/scripts/sshd-debian.sh "${SSHD_PORT}" "${USERNAME}" "${START_SSHD}" "skip" "true"
 
 # Install Go, remove scripts now that we're done with them
