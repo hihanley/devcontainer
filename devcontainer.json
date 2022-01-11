@@ -8,7 +8,6 @@
         "humao.rest-client",
         "redhat.vscode-xml",
         "redhat.vscode-yaml",
-        "golang.go",
         "visualstudioexptteam.vscodeintellicode"
     ],
     "mounts": [
