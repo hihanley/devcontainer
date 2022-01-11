@@ -5,10 +5,11 @@
     "settings": {},
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
-        "humao.rest-client",
-        "redhat.vscode-xml",
-        "redhat.vscode-yaml",
-        "visualstudioexptteam.vscodeintellicode"
+        // "humao.rest-client",
+        // "redhat.vscode-xml",
+        // "redhat.vscode-yaml",
+        // "golang.go",
+        // "visualstudioexptteam.vscodeintellicode"
     ],
     "mounts": [
         "source=dev-linux-var-lib-docker,target=/var/lib/docker,type=volume"
@@ -22,5 +23,14 @@
     "remoteEnv": {
         // "GOPROXY": "https://goproxy.cn,direct"
         // "PATH": "${containerEnv:PATH}:/path/to/bin",
+    },
+    "features": {
+        // "sshd": "latest",
+        // "golang": "latest",
+        // "desktop-lite": {
+        //     "password": "vscode",
+        //     "webPort": "6080",
+        //     "vncPort": "5901"
+        // }
     }
 }
